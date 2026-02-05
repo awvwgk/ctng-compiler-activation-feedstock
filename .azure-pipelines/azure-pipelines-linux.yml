@@ -44,24 +44,8 @@ jobs:
         CONFIG: linux_64_cross_target_platformlinux-ppc64legcc_version15.2.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_64_cross_target_platformosx-64gcc_version13.4.0:
-        CONFIG: linux_64_cross_target_platformosx-64gcc_version13.4.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_64_cross_target_platformosx-64gcc_version14.3.0:
-        CONFIG: linux_64_cross_target_platformosx-64gcc_version14.3.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
       linux_64_cross_target_platformosx-64gcc_version15.2.0:
         CONFIG: linux_64_cross_target_platformosx-64gcc_version15.2.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_64_cross_target_platformosx-arm64gcc_version13.4.0:
-        CONFIG: linux_64_cross_target_platformosx-arm64gcc_version13.4.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_64_cross_target_platformosx-arm64gcc_version14.3.0:
-        CONFIG: linux_64_cross_target_platformosx-arm64gcc_version14.3.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
       linux_64_cross_target_platformosx-arm64gcc_version15.2.0:
@@ -116,24 +100,8 @@ jobs:
         CONFIG: linux_aarch64_cross_target_platformlinux-ppc64legcc_version15.2.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_aarch64_cross_target_platformosx-64gcc_version13.4.0:
-        CONFIG: linux_aarch64_cross_target_platformosx-64gcc_version13.4.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_aarch64_cross_target_platformosx-64gcc_version14.3.0:
-        CONFIG: linux_aarch64_cross_target_platformosx-64gcc_version14.3.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
       linux_aarch64_cross_target_platformosx-64gcc_version15.2.0:
         CONFIG: linux_aarch64_cross_target_platformosx-64gcc_version15.2.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_aarch64_cross_target_platformosx-arm64gcc_version13.4.0:
-        CONFIG: linux_aarch64_cross_target_platformosx-arm64gcc_version13.4.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_aarch64_cross_target_platformosx-arm64gcc_version14.3.0:
-        CONFIG: linux_aarch64_cross_target_platformosx-arm64gcc_version14.3.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
       linux_aarch64_cross_target_platformosx-arm64gcc_version15.2.0:
@@ -188,24 +156,8 @@ jobs:
         CONFIG: linux_ppc64le_cross_target_platformlinux-ppc64legcc_version15.2.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_cross_target_platformosx-64gcc_version13.4.0:
-        CONFIG: linux_ppc64le_cross_target_platformosx-64gcc_version13.4.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_cross_target_platformosx-64gcc_version14.3.0:
-        CONFIG: linux_ppc64le_cross_target_platformosx-64gcc_version14.3.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
       linux_ppc64le_cross_target_platformosx-64gcc_version15.2.0:
         CONFIG: linux_ppc64le_cross_target_platformosx-64gcc_version15.2.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_cross_target_platformosx-arm64gcc_version13.4.0:
-        CONFIG: linux_ppc64le_cross_target_platformosx-arm64gcc_version13.4.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-      linux_ppc64le_cross_target_platformosx-arm64gcc_version14.3.0:
-        CONFIG: linux_ppc64le_cross_target_platformosx-arm64gcc_version14.3.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
       linux_ppc64le_cross_target_platformosx-arm64gcc_version15.2.0:
@@ -236,7 +188,7 @@ jobs:
         CONFIG: win_64_cross_stdlibm2w64-sysrootcross_stdlib_version12cross_target_platformwin-64gcc_version15.2.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-x86_64:alma9
-    maxParallel: 45
+    maxParallel: 39
   timeoutInMinutes: 360
   variables: {}
 
