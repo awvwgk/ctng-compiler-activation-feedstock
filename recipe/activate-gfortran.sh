@@ -40,7 +40,7 @@ _tc_activation() {
         return 1
         ;;
     esac
-    eval oldval="\$$thing"
+    eval oldval="\${$thing:-}"
     if [ -n "${oldval:-}" ]; then
       eval export "${to}'${thing}'=\"${oldval}\""
     else
