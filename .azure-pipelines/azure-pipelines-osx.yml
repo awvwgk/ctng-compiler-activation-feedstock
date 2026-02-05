@@ -26,7 +26,25 @@ jobs:
       osx_64_cross_target_platformwin-64gcc_version15.2.0:
         CONFIG: osx_64_cross_target_platformwin-64gcc_version15.2.0
         UPLOAD_PACKAGES: 'True'
-    maxParallel: 5
+      osx_arm64_cross_target_platformlinux-64gcc_version15.2.0:
+        CONFIG: osx_arm64_cross_target_platformlinux-64gcc_version15.2.0
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_cross_target_platformlinux-aarch64gcc_version15.2.0:
+        CONFIG: osx_arm64_cross_target_platformlinux-aarch64gcc_version15.2.0
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_cross_target_platformlinux-ppc64legcc_version15.2.0:
+        CONFIG: osx_arm64_cross_target_platformlinux-ppc64legcc_version15.2.0
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_cross_target_platformosx-64gcc_version15.2.0:
+        CONFIG: osx_arm64_cross_target_platformosx-64gcc_version15.2.0
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_cross_target_platformosx-arm64gcc_version15.2.0:
+        CONFIG: osx_arm64_cross_target_platformosx-arm64gcc_version15.2.0
+        UPLOAD_PACKAGES: 'True'
+      osx_arm64_cross_target_platformwin-64gcc_version15.2.0:
+        CONFIG: osx_arm64_cross_target_platformwin-64gcc_version15.2.0
+        UPLOAD_PACKAGES: 'True'
+    maxParallel: 11
   timeoutInMinutes: 360
   variables: {}
 
