@@ -1,7 +1,7 @@
 schema_version: 1
 
 context:
-  build_num: 23
+  build_num: 24
   gcc_version: ${{ gcc_version | default("13.1.0") }}
   gcc_major: ${{ (gcc_version | split("."))[0] | int }}
   default_skip: ${{ (target_platform == "win-64" and cross_target_platform != "win-64") or (cross_target_platform == "win-64" and gcc_major|int < 13) or cross_target_platform == "linux-s390x" or s390x or ((cross_target_platform in ("osx-64", "osx-arm64") or osx) and gcc_major|int < 15) }}
@@ -54,6 +54,8 @@ outputs:
           then: ${{ cross_stdlib }}_${{ cross_target_platform }}
         - if: cross_target_platform == "win-64"
           then: gendef
+        - if: osx and cross_target_platform in ("osx-64", "osx-arm64")
+          then: sdkroot_env_${{ cross_target_platform }}
       run_exports:
         strong:
           - libgcc >=${{ min_runtime_version }}
@@ -69,6 +71,9 @@ outputs:
             - if: cross_stdlib != "None"
               then: ${{ cross_stdlib }}_${{ cross_target_platform }} ${{ cross_stdlib_version }}.*
         script:
+          # rattler-build does not set CONDA_BUILD_SYSROOT from the variant file during tests
+          - if: build_platform not in ("osx-arm64", "osx-64") and cross_target_platform in ("osx-64", "osx-arm64")
+            then: export CONDA_BUILD_SYSROOT=${{ env.get("CONDA_BUILD_SYSROOT") }}
           - ${CC} ${CFLAGS} -Wall tests/aligned_alloc.c -c -o c_aligned.o -v
           - if: target_platform == cross_target_platform
             then: ${CC} ${LDFLAGS} c_aligned.o -o c_aligned
@@ -89,7 +94,8 @@ outputs:
       version: ${{ clang_version }}
     build:
       # only for linux; osx builds are done on clang-compiler-activation-feedstock
-      skip: default_skip or win or s390x or cross_target_platform not in ("linux-64", "linux-aarch64", "linux-ppc64le")
+      # native builds are skipped as they are done on clangdev-feedstock (see https://github.com/conda-forge/clangdev-feedstock/pull/405/changes)
+      skip: default_skip or win or s390x or cross_target_platform not in ("linux-64", "linux-aarch64", "linux-ppc64le") or target_platform == cross_target_platform
       script: install-clang_impl.sh
     requirements:
       build:
@@ -129,6 +135,8 @@ outputs:
         - clang_impl_${{ cross_target_platform }} ${{ clang_version }}.*
         # need to ensure libgcc-devel_<target> matching the run-exports is used
         - libgcc-devel_${{ cross_target_platform }} ${{ gcc_version }}.*
+        - if: osx and cross_target_platform in ("osx-64", "osx-arm64")
+          then: sdkroot_env_${{ cross_target_platform }}
       run_exports:
         strong:
           - libgcc >=${{ min_runtime_version }}
@@ -141,6 +149,9 @@ outputs:
             - if: cross_stdlib != "None"
               then: ${{ cross_stdlib }}_${{ cross_target_platform }} ${{ cross_stdlib_version }}.*
         script:
+          # rattler-build does not set CONDA_BUILD_SYSROOT from the variant file during tests
+          - if: build_platform not in ("osx-arm64", "osx-64") and cross_target_platform in ("osx-64", "osx-arm64")
+            then: export CONDA_BUILD_SYSROOT=${{ env.get("CONDA_BUILD_SYSROOT") }}
           - ${CC} ${CFLAGS} -Wall tests/aligned_alloc.c -c -o c_aligned.o -v
           - if: target_platform == cross_target_platform
             then: ${CC} ${LDFLAGS} c_aligned.o -o c_aligned
@@ -177,6 +188,8 @@ outputs:
           else: binutils_${{ cross_target_platform }}
         - if: cross_stdlib != "None"
           then: ${{ cross_stdlib }}_${{ cross_target_platform }}
+        - if: osx and cross_target_platform in ("osx-64", "osx-arm64")
+          then: sdkroot_env_${{ cross_target_platform }}
       run_exports:
         strong:
           # This should be a transitive dependency, but conda-build doesn't support those
@@ -197,6 +210,9 @@ outputs:
             - if: cross_stdlib != "None"
               then: ${{ cross_stdlib }}_${{ cross_target_platform }} ${{ cross_stdlib_version }}.*
         script:
+          # rattler-build does not set CONDA_BUILD_SYSROOT from the variant file during tests
+          - if: build_platform not in ("osx-arm64", "osx-64") and cross_target_platform in ("osx-64", "osx-arm64")
+            then: export CONDA_BUILD_SYSROOT=${{ env.get("CONDA_BUILD_SYSROOT") }}
           - ${CXX} ${CXXFLAGS} -Wall tests/aligned_alloc.cpp -c -o cpp_aligned.o
           - if: target_platform == cross_target_platform
             then: ${CXX} ${LDFLAGS} cpp_aligned.o -o cpp_aligned
@@ -215,7 +231,8 @@ outputs:
       version: ${{ clang_version }}
     build:
       # only for linux; osx builds are done on clang-compiler-activation-feedstock
-      skip: default_skip or win or s390x or cross_target_platform not in ("linux-64", "linux-aarch64", "linux-ppc64le")
+      # native builds are skipped as they are done on clangdev-feedstock (see https://github.com/conda-forge/clangdev-feedstock/pull/405/changes)
+      skip: default_skip or win or s390x or cross_target_platform not in ("linux-64", "linux-aarch64", "linux-ppc64le") or target_platform == cross_target_platform
       script: install-clangxx_impl.sh
     requirements:
       build:
@@ -258,6 +275,8 @@ outputs:
         # the dependency below is redundant, but we need to ensure different hashes
         # since the clang_{impl_,}_<target> outputs depend on a specific gcc version
         - libstdcxx-devel_${{ cross_target_platform }} ${{ gcc_version }}.*
+        - if: osx and cross_target_platform in ("osx-64", "osx-arm64")
+          then: sdkroot_env_${{ cross_target_platform }}
       run_exports:
         strong:
           # This should be a transitive dependency, but conda-build doesn't support those
@@ -275,6 +294,9 @@ outputs:
             - if: cross_stdlib != "None"
               then: ${{ cross_stdlib }}_${{ cross_target_platform }} ${{ cross_stdlib_version }}.*
         script:
+          # rattler-build does not set CONDA_BUILD_SYSROOT from the variant file during tests
+          - if: build_platform not in ("osx-arm64", "osx-64") and cross_target_platform in ("osx-64", "osx-arm64")
+            then: export CONDA_BUILD_SYSROOT=${{ env.get("CONDA_BUILD_SYSROOT") }}
           - ${CXX} ${CXXFLAGS} -Wall tests/aligned_alloc.cpp -c -o cpp_aligned.o
           - if: target_platform == cross_target_platform
             then: ${CXX} ${LDFLAGS} cpp_aligned.o -o cpp_aligned
@@ -308,6 +330,8 @@ outputs:
           else: cctools_${{ cross_target_platform }}
         - if: cross_stdlib != "None"
           then: ${{ cross_stdlib }}_${{ cross_target_platform }}
+        - if: osx and cross_target_platform in ("osx-64", "osx-arm64")
+          then: sdkroot_env_${{ cross_target_platform }}
       run_exports:
         strong:
           - libgfortran${{ libgfortran_soname }} >=${{ gcc_version }}
