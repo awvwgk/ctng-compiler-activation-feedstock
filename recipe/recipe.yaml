@@ -69,6 +69,9 @@ outputs:
             - if: cross_stdlib != "None"
               then: ${{ cross_stdlib }}_${{ cross_target_platform }} ${{ cross_stdlib_version }}.*
         script:
+          # rattler-build does not set CONDA_BUILD_SYSROOT from the variant file during tests
+          - if: build_platform not in ("osx-arm64", "osx-64") and cross_target_platform in ("osx-64", "osx-arm64")
+            then: export CONDA_BUILD_SYSROOT=${{ env.get("CONDA_BUILD_SYSROOT") }}
           - ${CC} ${CFLAGS} -Wall tests/aligned_alloc.c -c -o c_aligned.o -v
           - if: target_platform == cross_target_platform
             then: ${CC} ${LDFLAGS} c_aligned.o -o c_aligned
@@ -142,6 +145,9 @@ outputs:
             - if: cross_stdlib != "None"
               then: ${{ cross_stdlib }}_${{ cross_target_platform }} ${{ cross_stdlib_version }}.*
         script:
+          # rattler-build does not set CONDA_BUILD_SYSROOT from the variant file during tests
+          - if: build_platform not in ("osx-arm64", "osx-64") and cross_target_platform in ("osx-64", "osx-arm64")
+            then: export CONDA_BUILD_SYSROOT=${{ env.get("CONDA_BUILD_SYSROOT") }}
           - ${CC} ${CFLAGS} -Wall tests/aligned_alloc.c -c -o c_aligned.o -v
           - if: target_platform == cross_target_platform
             then: ${CC} ${LDFLAGS} c_aligned.o -o c_aligned
@@ -198,6 +204,9 @@ outputs:
             - if: cross_stdlib != "None"
               then: ${{ cross_stdlib }}_${{ cross_target_platform }} ${{ cross_stdlib_version }}.*
         script:
+          # rattler-build does not set CONDA_BUILD_SYSROOT from the variant file during tests
+          - if: build_platform not in ("osx-arm64", "osx-64") and cross_target_platform in ("osx-64", "osx-arm64")
+            then: export CONDA_BUILD_SYSROOT=${{ env.get("CONDA_BUILD_SYSROOT") }}
           - ${CXX} ${CXXFLAGS} -Wall tests/aligned_alloc.cpp -c -o cpp_aligned.o
           - if: target_platform == cross_target_platform
             then: ${CXX} ${LDFLAGS} cpp_aligned.o -o cpp_aligned
@@ -277,6 +286,9 @@ outputs:
             - if: cross_stdlib != "None"
               then: ${{ cross_stdlib }}_${{ cross_target_platform }} ${{ cross_stdlib_version }}.*
         script:
+          # rattler-build does not set CONDA_BUILD_SYSROOT from the variant file during tests
+          - if: build_platform not in ("osx-arm64", "osx-64") and cross_target_platform in ("osx-64", "osx-arm64")
+            then: export CONDA_BUILD_SYSROOT=${{ env.get("CONDA_BUILD_SYSROOT") }}
           - ${CXX} ${CXXFLAGS} -Wall tests/aligned_alloc.cpp -c -o cpp_aligned.o
           - if: target_platform == cross_target_platform
             then: ${CXX} ${LDFLAGS} cpp_aligned.o -o cpp_aligned
